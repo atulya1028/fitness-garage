@@ -105,6 +105,13 @@ app.patch('/api/admin/leads/:id', admin, async (req, res, next) => {
 
 function crud(path, Model, fields) {
   const pick = (body) => Object.fromEntries(fields.filter((f) => f in body).map((f) => [f, body[f]]));
+  app.get(`/api/admin/${path}`, admin, async (_req, res, next) => {
+    try {
+      res.json(await Model.find().sort({ order: 1 }).lean());
+    } catch (e) {
+      next(e);
+    }
+  });
   app.post(`/api/admin/${path}`, admin, async (req, res, next) => {
     try {
       res.status(201).json(await Model.create(pick(req.body || {})));
