@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
-
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+import { API } from '../lib/content';
 
 export default function EnquiryForm() {
   const [status, setStatus] = useState('idle'); // idle | sending | done | error

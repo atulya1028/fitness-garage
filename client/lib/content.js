@@ -25,7 +25,8 @@ export const DEFAULT_TRAINERS = [
   { _id: 'p', name: 'Pankaj', bio: 'Praised by members as supportive and encouraging.' },
 ];
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const rawApi = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+export const API = /^https?:\/\//i.test(rawApi) ? rawApi.replace(/\/+$/, '') : `https://${rawApi.replace(/\/+$/, '')}`;
 
 // Server-side fetch; falls back to defaults so the site still renders if the API is down.
 export async function getContent() {
