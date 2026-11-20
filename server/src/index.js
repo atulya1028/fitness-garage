@@ -8,9 +8,31 @@ const { Lead, Plan, Trainer } = require('./models');
 
 const app = express();
 app.use(express.json({ limit: '50kb' }));
+const allowedOrigins = (process.env.CLIENT_ORIGIN || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: (process.env.CLIENT_ORIGIN || 'http://localhost:3000').split(',').map((s) => s.trim()),
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      try {
+        const hostname = new URL(origin).hostname;
+        if (
+          allowedOrigins.length === 0 ||
+          allowedOrigins.includes('*') ||
+          allowedOrigins.includes(origin) ||
+          hostname.endsWith('.onrender.com') ||
+          hostname === 'localhost' ||
+          hostname === '127.0.0.1'
+        ) {
+          return callback(null, true);
+        }
+      } catch {}
+      return callback(null, false);
+    },
+    credentials: true,
   })
 );
 
