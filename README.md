@@ -25,3 +25,4 @@ If the API is down, the site still renders using built-in default content.
 - Remove the "concept draft" banner and footer note only with the gym's approval.
 - Deploy: client on Vercel, API on Render/Railway, database on MongoDB Atlas.
   Set `CLIENT_ORIGIN` (API) and `NEXT_PUBLIC_API_URL` / `NEXT_PUBLIC_SITE_URL` (client).
+# fitness-garage
