@@ -26,6 +26,7 @@ function admin(req, res, next) {
   next();
 }
 
+app.get('/', (_req, res) => res.json({ message: 'The Fitness Garage API is running.', status: 'OK' }));
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
 // ---- public ----
